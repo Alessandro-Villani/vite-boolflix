@@ -6,6 +6,11 @@ export default {
         language: String,
         rating: Number,
         overview: String
+    },
+    methods: {
+        getImageUrl(image) {
+            return new URL(`../../assets/img/flags/${image}.png`, import.meta.url).href;
+        },
     }
 }
 </script>
@@ -14,7 +19,9 @@ export default {
     <div class="card text-center">
         <h3>{{ title }}</h3>
         <h5>{{ originalTitle }}</h5>
-        <p>{{ language }}</p>
+        <figure class="w-50 m-auto">
+            <img class="img-fluid" :src="getImageUrl(language)" :alt="language">
+        </figure>
         <p>{{ rating }}</p>
         <p>{{ overview || 'N/A' }}</p>
     </div>
