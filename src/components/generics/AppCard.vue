@@ -5,7 +5,8 @@ export default {
         originalTitle: String,
         language: String,
         rating: Number,
-        overview: String
+        overview: String,
+        imgUrl: String
     },
     methods: {
         getImageUrl(image) {
@@ -19,6 +20,9 @@ export default {
     <div class="card text-center">
         <h3>{{ title }}</h3>
         <h5>{{ originalTitle }}</h5>
+        <figure v-if="imgUrl" class="w-50 m-auto">
+            <img class="img-fluid" :src="imgUrl" :alt="title">
+        </figure>
         <figure class="w-50 m-auto">
             <img class="img-fluid" :src="getImageUrl(language)" :alt="language">
         </figure>
