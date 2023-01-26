@@ -47,7 +47,9 @@ export default {
           const movies = res.data.results;
           this.foundMovies = movies.map(movie => {
             const { id, title, original_title, original_language, vote_average, poster_path } = movie
-            return { id, title, originalTitle: original_title, language: original_language, rating: vote_average, imgUrl: 'https://image.tmdb.org/t/p/w342' + poster_path }
+            const rating = Math.ceil(vote_average / 2);
+            const emptyStars = 5 - rating
+            return { id, title, originalTitle: original_title, language: original_language, rating, emptyStars, imgUrl: 'https://image.tmdb.org/t/p/w342' + poster_path }
 
           });
           this.foundMovies.forEach(movie => {
@@ -63,7 +65,8 @@ export default {
             console.log(series);
             console.log('overview' + series.overview)
             const { id, name, original_name, original_language, vote_average, poster_path, overview } = series
-            return { id, title: name, originalTitle: original_name, language: original_language, rating: vote_average, imgUrl: 'https://image.tmdb.org/t/p/w342' + poster_path, overview }
+            const rating = Math.ceil(vote_average / 2);
+            return { id, title: name, originalTitle: original_name, language: original_language, rating, emptyStars, imgUrl: 'https://image.tmdb.org/t/p/w342' + poster_path, overview }
 
           });
           console.log(this.foundTvSeries);

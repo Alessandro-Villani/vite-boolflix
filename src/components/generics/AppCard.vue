@@ -5,6 +5,7 @@ export default {
         originalTitle: String,
         language: String,
         rating: Number,
+        emptyStars: Number,
         overview: String,
         imgUrl: String
     },
@@ -26,7 +27,10 @@ export default {
         <figure class="w-50 m-auto">
             <img class="img-fluid" :src="getImageUrl(language)" :alt="language">
         </figure>
-        <p>{{ rating }}</p>
+        <div class="rating d-flex justify-content-center">
+            <font-awesome-icon icon="fa-solid fa-star" v-for="index in rating" :key="index" />
+            <font-awesome-icon icon="fa-regular fa-star" v-for="index in emptyStars" :key="index" />
+        </div>
         <p>{{ overview || 'N/A' }}</p>
     </div>
 </template>
