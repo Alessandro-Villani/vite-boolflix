@@ -9,24 +9,19 @@ export default {
   data() {
     return {
       titleToSearch: '',
-      apiUri,
-      apiKey,
-      getMovies,
-      getTvSeries,
-      getSingleMovie,
       foundMovies: [],
       foundTvSeries: []
     }
   },
   computed: {
     moviesEndpoint() {
-      return this.apiUri + this.getMovies
+      return apiUri + getMovies
     },
     tvSeriesEndpoint() {
-      return this.apiUri + this.getTvSeries
+      return apiUri + getTvSeries
     },
     singleMovieEndpoint() {
-      return this.apiUri + this.getSingleMovie
+      return apiUri + getSingleMovie
     }
   },
   components: { SearchBar, AppCard },
@@ -41,7 +36,7 @@ export default {
     fetchSearched(item) {
       const config = {
         params: {
-          api_key: this.apiKey,
+          api_key: apiKey,
           query: this.titleToSearch,
           language: 'IT-it'
         }
@@ -76,7 +71,7 @@ export default {
       }).catch(err => { console.error(err) })
     },
     fetchMovieOverview(id) {
-      const endpoint = this.singleMovieEndpoint + id + '?api_key=' + this.apiKey + '&language=IT-it';
+      const endpoint = this.singleMovieEndpoint + id + '?api_key=' + apiKey + '&language=IT-it';
       console.log(endpoint);
       axios.get(endpoint).then(res => {
         console.log(res.data.overview);
