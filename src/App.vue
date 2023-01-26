@@ -14,12 +14,16 @@ export default {
       getMovies,
       getTvSeries,
       getSingleMovie,
-      foundMovies: []
+      foundMovies: [],
+      foundTvSeries: []
     }
   },
   computed: {
     moviesEndpoint() {
       return this.apiUri + this.getMovies
+    },
+    tvSeriesEndpoint() {
+      return this.apiUri + this.getTvSeries
     },
     singleMovieEndpoint() {
       return this.apiUri + this.getSingleMovie
@@ -30,7 +34,11 @@ export default {
     getTitleToSearch(title) {
       this.titleToSearch = title;
     },
-    fetchSearchedMovies() {
+    searchMovieAndSeries() {
+      this.fetchSearched('movies');
+      this.fetchSearched('series');
+    },
+    fetchSearched(item) {
       const config = {
         params: {
           api_key: this.apiKey,
@@ -38,17 +46,33 @@ export default {
           language: 'IT-it'
         }
       }
-      axios.get(this.moviesEndpoint, config).then(res => {
-        const movies = res.data.results;
-        this.foundMovies = movies.map(movie => {
-          const { id, title, original_title, original_language, vote_average } = movie
-          return { id, title, originalTitle: original_title, language: original_language, rating: vote_average }
-        });
-        this.foundMovies.forEach(movie => {
-          console.log(movie.id);
-          this.fetchMovieOverview(movie.id);
-        })
-        console.log(this.foundMovies);
+      const endpoint = item === 'movies' ? this.moviesEndpoint : this.tvSeriesEndpoint
+      axios.get(endpoint, config).then(res => {
+        if (item === 'movies') {
+          const movies = res.data.results;
+          this.foundMovies = movies.map(movie => {
+            const { id, title, original_title, original_language, vote_average } = movie
+            return { id, title, originalTitle: original_title, language: original_language, rating: vote_average }
+
+          });
+          this.foundMovies.forEach(movie => {
+            console.log(movie.id);
+            this.fetchMovieOverview(movie.id);
+          })
+          console.log(this.foundMovies);
+        }
+        else {
+          const tvSeries = res.data.results;
+          console.log(tvSeries);
+          this.foundTvSeries = tvSeries.map(series => {
+            console.log(series);
+            console.log('overview' + series.overview)
+            const { id, name, original_name, original_language, vote_average, overview } = series
+            return { id, title: name, originalTitle: original_name, language: original_language, rating: vote_average, overview }
+
+          });
+          console.log(this.foundTvSeries);
+        }
       }).catch(err => { console.error(err) })
     },
     fetchMovieOverview(id) {
@@ -62,15 +86,16 @@ export default {
           }
         })
       })
-    }
+    },
   }
 }
 </script>
 
 <template>
   <main class="container py-5">
-    <SearchBar @update-term="getTitleToSearch" @search="fetchSearchedMovies" />
+    <SearchBar @update-term="getTitleToSearch" @search="searchMovieAndSeries" />
     <AppCard v-for="movie in foundMovies" :key="movie.id" v-bind="movie" />
+    <AppCard v-for="series in foundTvSeries" :key="series.id" v-bind="series" />
   </main>
 </template>
 
