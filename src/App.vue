@@ -63,14 +63,16 @@ export default {
           store.foundMovies = productions.map(movie => {
             const { id, title, original_title, original_language, vote_average, poster_path } = movie
             const rating = Math.ceil(vote_average / 2);
-            const emptyStars = 5 - rating
-            return { id, title, originalTitle: original_title, language: original_language, rating, emptyStars, imgUrl: 'https://image.tmdb.org/t/p/w342' + poster_path }
+            const emptyStars = 5 - rating;
+            const imgUrl = poster_path ? 'https://image.tmdb.org/t/p/w342' + poster_path : ''
+            return { id, title, originalTitle: original_title, language: original_language, rating, emptyStars, imgUrl }
 
           });
           //Taking overview for each movie from single movie API call
           store.foundMovies.forEach(movie => {
             this.fetchMovieOverview(movie.id);
-          })
+          });
+          this.sortObjectsById(store.foundMovies)
         }
         //Operations in case of tv series
         else {
@@ -82,6 +84,7 @@ export default {
             return { id, title: name, originalTitle: original_name, language: original_language, rating, emptyStars, imgUrl: 'https://image.tmdb.org/t/p/w342' + poster_path, overview }
 
           });
+          this.sortObjectsById(store.foundTvSeries);
         }
       }).catch(err => { console.error(err) })
     },
@@ -96,6 +99,9 @@ export default {
         })
       })
     },
+    sortObjectsById(array) {
+      array = array.sort((a, b) => { return a.id - b.id })
+    }
   }
 }
 </script>

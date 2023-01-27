@@ -17,7 +17,7 @@ export default {
 <template>
     <form @submit.prevent="$emit('search')">
         <div class="input-group">
-            <input type="text" class="form-control" :placeholder="placeholder || 'Cerca...'" v-model="term"
+            <input type="text" class="form-control" :placeholder="placeholder || 'Cerca...'" v-model.trim="term"
                 @keyup="$emit('update-term', term)">
             <button class="btn btn-danger" type="submit">{{ label || 'Cerca' }}</button>
         </div>
