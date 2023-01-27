@@ -54,13 +54,10 @@ export default {
     background-repeat: no-repeat;
     background-size: cover;
     cursor: pointer;
+    position: relative;
 
     &.no-img {
         background-color: black;
-
-        &:hover>h3 {
-            display: none;
-        }
     }
 
     h3 {
@@ -69,6 +66,10 @@ export default {
 
     .overlay {
         background-color: black;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
         width: 100%;
         min-height: 100%;
         overflow-y: auto;

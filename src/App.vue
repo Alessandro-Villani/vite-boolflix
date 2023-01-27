@@ -81,7 +81,8 @@ export default {
             const { id, name, original_name, original_language, vote_average, poster_path, overview } = series
             const rating = Math.ceil(vote_average / 2);
             const emptyStars = 5 - rating;
-            return { id, title: name, originalTitle: original_name, language: original_language, rating, emptyStars, imgUrl: 'https://image.tmdb.org/t/p/w342' + poster_path, overview }
+            const imgUrl = poster_path ? 'https://image.tmdb.org/t/p/w342' + poster_path : ''
+            return { id, title: name, originalTitle: original_name, language: original_language, rating, emptyStars, imgUrl, overview }
 
           });
           this.sortObjectsById(store.foundTvSeries);
