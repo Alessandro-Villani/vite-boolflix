@@ -6,6 +6,9 @@ import App from './App.vue'
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 
+//FONTSOURCE
+import '@fontsource/bebas-neue'
+
 //ICONS
 import {faStar} from '@fortawesome/free-solid-svg-icons'
 import {faStar as farStar} from '@fortawesome/free-regular-svg-icons'

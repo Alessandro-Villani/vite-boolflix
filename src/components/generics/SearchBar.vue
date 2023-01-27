@@ -7,7 +7,7 @@ export default {
         }
     },
     props: {
-        label: String,
+        label: [String, Object],
         placeholder: String
     },
     emits: ['search', 'update-term']
@@ -16,10 +16,10 @@ export default {
 
 <template>
     <form @submit.prevent="$emit('search')">
-        <div class="input-group mb-3">
+        <div class="input-group">
             <input type="text" class="form-control" :placeholder="placeholder || 'Cerca...'" v-model="term"
                 @keyup="$emit('update-term', term)">
-            <button class="btn btn-outline-secondary" type="submit">{{ label || 'Cerca' }}</button>
+            <button class="btn btn-danger" type="submit">{{ label || 'Cerca' }}</button>
         </div>
     </form>
 </template>

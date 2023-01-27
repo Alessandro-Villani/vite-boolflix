@@ -9,9 +9,13 @@ export default {
         overview: String,
         imgUrl: String
     },
-    methods: {
-        getImageUrl(image) {
-            return new URL(`../../assets/img/flags/${image}.png`, import.meta.url).href;
+    computed: {
+        hasFlag() {
+            const flag = ['it', 'en'];
+            return flag.includes(this.language);
+        },
+        getImageUrl() {
+            return new URL(`../../assets/img/flags/${this.language}.png`, import.meta.url).href;
         },
     }
 }
@@ -22,11 +26,12 @@ export default {
         <h3>{{ title }}</h3>
         <h5>{{ originalTitle }}</h5>
         <figure v-if="imgUrl" class="w-50 m-auto">
-            <img class="img-fluid" :src="imgUrl" :alt="title">
+            <img class="img-fluid" :src="imgUrl" :alt="title" @error="(e) => e.target.src = '/no-image.png'">
         </figure>
-        <figure class="w-50 m-auto">
-            <img class="img-fluid" :src="getImageUrl(language)" :alt="language">
+        <figure v-if="hasFlag" class="w-50 m-auto">
+            <img class="img-fluid" :src="getImageUrl" :alt="language">
         </figure>
+        <p v-else>{{ language }}</p>
         <div class="rating d-flex justify-content-center">
             <font-awesome-icon icon="fa-solid fa-star" v-for="index in rating" :key="index" />
             <font-awesome-icon icon="fa-regular fa-star" v-for="index in emptyStars" :key="index" />
