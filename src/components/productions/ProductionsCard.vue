@@ -11,7 +11,7 @@ export default {
     },
     computed: {
         hasFlag() {
-            const flag = ['it', 'en'];
+            const flag = ['it', 'en', 'es', 'fr', 'pl', 'sv', 'tl', 'hi', 'pt', 'ko', 'nl', 'de', 'ja', 'id', 'ro', 'hu', 'mo', 'ru'];
             return flag.includes(this.language);
         },
         getImageUrl() {
@@ -53,6 +53,7 @@ export default {
     color: white;
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     cursor: pointer;
     position: relative;
 
