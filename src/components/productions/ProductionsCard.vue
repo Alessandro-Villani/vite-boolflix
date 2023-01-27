@@ -48,14 +48,12 @@ export default {
 .card {
     height: 300px;
     overflow-y: hidden;
-    position: relative;
     border-width: 0;
     color: white;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     cursor: pointer;
-    position: relative;
 
     &.no-img {
         background-color: black;
@@ -67,9 +65,7 @@ export default {
 
     .overlay {
         background-color: black;
-        position: absolute;
-        top: 0;
-        left: 0;
+        position: relative;
         z-index: 1;
         width: 100%;
         min-height: 100%;
