@@ -7,7 +7,7 @@ export default {
         }
     },
     props: {
-        label: [String, Object],
+        label: String,
         placeholder: String
     },
     emits: ['search', 'update-term']

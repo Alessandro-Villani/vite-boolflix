@@ -4,6 +4,7 @@ import ProductionsCard from './components/productions/ProductionsCard.vue';
 import { apiUri, apiKey, getMovies, getTvSeries, getSingleMovie } from './assets/data';
 import { store } from './assets/data/store';
 import AppHeader from './components/AppHeader.vue';
+import AppSection from './components/AppSection.vue';
 
 export default {
   name: "Boolflix",
@@ -33,7 +34,7 @@ export default {
       }
     }
   },
-  components: { ProductionsCard, AppHeader },
+  components: { ProductionsCard, AppHeader, AppSection },
   methods: {
     // Get title to search from event emit
     getTitleToSearch(title) {
@@ -100,12 +101,10 @@ export default {
 </script>
 
 <template>
+  <AppHeader @update-title="getTitleToSearch" @search-title="searchMovieAndSeries" />
   <main>
-    <AppHeader @update-title="getTitleToSearch" @search-title="searchMovieAndSeries" />
-    <h2>MOVIES</h2>
-    <ProductionsCard v-for="movie in store.foundMovies" :key="movie.id" v-bind="movie" />
-    <h2>TV SERIES</h2>
-    <ProductionsCard v-for="series in store.foundTvSeries" :key="series.id" v-bind="series" />
+    <AppSection v-if="store.foundMovies.length" title="Movies" :array="store.foundMovies" />
+    <AppSection v-if="store.foundTvSeries.length" title="TV Series" :array="store.foundTvSeries" />
   </main>
 </template>
 
