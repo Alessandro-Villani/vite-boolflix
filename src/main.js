@@ -14,7 +14,9 @@ import {faStar} from '@fortawesome/free-solid-svg-icons'
 import {faStar as farStar} from '@fortawesome/free-regular-svg-icons'
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-library.add(faStar, farStar, faMagnifyingGlass, faCircleNotch);
+import { faCircleChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { faCircleChevronRight } from '@fortawesome/free-solid-svg-icons'
+library.add(faStar, farStar, faMagnifyingGlass, faCircleNotch, faCircleChevronLeft, faCircleChevronRight);
 
 
 const app = createApp(App)

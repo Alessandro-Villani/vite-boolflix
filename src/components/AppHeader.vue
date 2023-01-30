@@ -21,7 +21,7 @@ export default {
                 <h1 class="mb-0"><a href="#">BOOLFLIX</a></h1>
             </div>
             <div class="nav-right d-flex align-items-center">
-                <AppSelect :options="store.genres" label="Genre" dafaultOption=">-- No Filter --<"
+                <AppSelect :options="store.genres" label="Genre:" dafaultOption=">-- No Filter --<"
                     @option-change="$emit('change-filter', $event)" />
                 <SearchBar placeholder="Cerca Film e Serie TV" @update-term="$emit('update-title', $event)"
                     @search="$emit('search-title', $event)" />
@@ -40,7 +40,7 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 2;
+    z-index: 3;
 
     a {
         text-decoration: none;

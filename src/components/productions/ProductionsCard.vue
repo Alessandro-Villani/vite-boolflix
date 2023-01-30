@@ -7,7 +7,7 @@ export default {
         rating: Number,
         emptyStars: Number,
         overview: String,
-        imgUrl: String
+        imgUrl: String,
     },
     computed: {
         hasFlag() {
@@ -28,7 +28,7 @@ export default {
 </script>
 
 <template>
-    <div class="col mb-3">
+    <div class="col-2 mb-3 px-1">
         <div class="card text-center" :class="{ 'no-img': !imgUrl }"
             :style="{ 'background-image': 'url(' + imgUrl + ')' }">
             <h3 class="mt-3" v-if="!imgUrl">{{ title }}</h3>
@@ -59,6 +59,15 @@ export default {
     background-size: cover;
     background-position: center;
     cursor: pointer;
+    transition: all 0.5s;
+
+
+    &:hover {
+        scale: 1.1;
+        transform: translateY(-20px);
+        z-index: 1;
+        box-shadow: 0 0 10px red;
+    }
 
     &.no-img {
         background-color: black;
