@@ -17,6 +17,12 @@ export default {
         getImageUrl() {
             return new URL(`../../assets/img/flags/${this.language}.png`, import.meta.url).href;
         },
+    },
+    methods: {
+        starClass(i) {
+            const starClass = i <= this.rating ? 'fa-solid' : 'fa-regular'
+            return 'fa-star ' + starClass;
+        }
     }
 }
 </script>
@@ -27,15 +33,14 @@ export default {
             :style="{ 'background-image': 'url(' + imgUrl + ')' }">
             <h3 class="mt-3" v-if="!imgUrl">{{ title }}</h3>
             <div class="overlay px-1 py-3">
-                <h3>{{ title }}</h3>
+                <h3 v-if="imgUrl">{{ title }}</h3>
                 <h6>{{ originalTitle }}</h6>
                 <figure v-if="hasFlag">
                     <img class="flag" :src="getImageUrl" :alt="language">
                 </figure>
                 <p v-else>{{ language }}</p>
                 <div class="rating d-flex justify-content-center mb-3">
-                    <font-awesome-icon icon="fa-solid fa-star" v-for="index in rating" :key="index" />
-                    <font-awesome-icon icon="fa-regular fa-star" v-for="index in emptyStars" :key="index" />
+                    <font-awesome-icon v-for="i in 5" :icon="starClass(i)" :key="i" />
                 </div>
                 <h5>Trama:</h5>
                 <p>{{ overview || 'N/A' }}</p>

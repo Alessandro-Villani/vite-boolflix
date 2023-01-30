@@ -1,10 +1,17 @@
 <script>
+import AppSelect from './generics/AppSelect.vue';
 import SearchBar from './generics/SearchBar.vue';
+import { store } from '../assets/data/store';
 
 export default {
-    components: { SearchBar },
-    emits: ['update-title', 'search-title']
-}
+    data() {
+        return {
+            store
+        }
+    },
+    components: { SearchBar, AppSelect },
+    emits: ['update-title', 'search-title', 'change-filter'],
+}   
 </script>
 
 <template>
@@ -13,7 +20,9 @@ export default {
             <div class="nav-left">
                 <h1 class="mb-0"><a href="#">BOOLFLIX</a></h1>
             </div>
-            <div class="nav-right">
+            <div class="nav-right d-flex align-items-center">
+                <AppSelect :options="store.genres" label="Genre" dafaultOption=">-- No Filter --<"
+                    @option-change="$emit('change-filter', $event)" />
                 <SearchBar placeholder="Cerca Film e Serie TV" @update-term="$emit('update-title', $event)"
                     @search="$emit('search-title', $event)" />
 
