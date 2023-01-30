@@ -12,8 +12,9 @@ import '@fontsource/bebas-neue'
 //ICONS
 import {faStar} from '@fortawesome/free-solid-svg-icons'
 import {faStar as farStar} from '@fortawesome/free-regular-svg-icons'
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-library.add(faStar, farStar, faMagnifyingGlass);
+library.add(faStar, farStar, faMagnifyingGlass, faCircleNotch);
 
 
 const app = createApp(App)

@@ -5,6 +5,7 @@ import { apiUri, apiKey, getMovies, getTvSeries, getSingleMovie, getGenres } fro
 import { store } from './assets/data/store';
 import AppHeader from './components/AppHeader.vue';
 import AppSection from './components/AppSection.vue';
+import AppLoader from './components/generics/AppLoader.vue';
 
 export default {
   name: "Boolflix",
@@ -54,7 +55,7 @@ export default {
       }
     }
   },
-  components: { ProductionsCard, AppHeader, AppSection },
+  components: { ProductionsCard, AppHeader, AppSection, AppLoader },
   methods: {
     // Get title to search from event emit
     getTitleToSearch(title) {
@@ -64,16 +65,18 @@ export default {
     // Search movie and series and put it in dedicated array
     searchMovieAndSeries() {
       if (!this.titleToSearch) {
-        store.foundMovies = [];
-        store.foundTvSeries = [];
+        this.storeReset();
         return
       }
+      this.storeReset();
+      store.search = true;
       this.fetchSearched('movies');
       this.fetchSearched('series');
     },
 
     // Search movies or series based on parameter
     fetchSearched(item) {
+      store.isLoading = true;
       const endpoint = item === 'movies' ? this.moviesEndpoint : this.tvSeriesEndpoint
       axios.get(endpoint, this.axiosConfig).then(res => {
         let productions = res.data.results;
@@ -110,7 +113,9 @@ export default {
             this.sortObjectsById(store.foundTvSeries);
           }
         }
-      }).catch(err => { console.error(err) })
+      }).catch(err => { console.error(err) }).then(() => {
+        store.isLoading = false;
+      })
     },
     //Function taking overview of single movie
     fetchMovieOverview(id) {
@@ -145,6 +150,11 @@ export default {
     //Function sorting an array by ID
     sortObjectsById(array) {
       array = array.sort((a, b) => { return a.id - b.id })
+    },
+    storeReset() {
+      store.search = false;
+      store.foundMovies = [];
+      store.foundTvSeries = [];
     }
   },
   mounted() {
@@ -158,6 +168,11 @@ export default {
   <main>
     <AppSection v-if="filteredMovies.length" title="Movies" :array="filteredMovies" />
     <AppSection v-if="filteredSeries.length" title="TV Series" :array="filteredSeries" />
+    <div class="no-results d-flex justify-content-center align-items-center w-100 h-100 text-white"
+      v-if="!store.isLoading && store.search && !filteredMovies.length && !filteredSeries.length">
+      <h2>Nessun Risultato</h2>
+    </div>
+    <AppLoader v-if="store.isLoading && !filteredMovies.length && !filteredSeries.length" />
   </main>
 </template>
 
