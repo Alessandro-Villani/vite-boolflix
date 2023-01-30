@@ -36,7 +36,7 @@ header {
     font-family: "Bebas Neue", cursive;
     height: 100px;
     background-color: black;
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     right: 0;

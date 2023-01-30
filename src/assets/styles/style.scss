@@ -6,9 +6,19 @@ body {
 }
 
 main {
-    padding-top: 150px;
-    height: 100vh;
+    padding-top: 50px;
+    height: calc(100vh - 100px);
     position: relative;
     overflow-x: hidden;
 
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    background-color: black;
+}
+
+::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 2px;
 }
